@@ -13,6 +13,8 @@ class SendMoneyController
     public function __invoke(SendMoneyRequest $request, PerformWalletTransfer $performWalletTransfer)
     {
         $recipient = $request->getRecipient();
+        $recurring = $request->getRecurring();
+        $interval = $request->getInterval();
 
         try {
             $performWalletTransfer->execute(
@@ -20,6 +22,10 @@ class SendMoneyController
                 recipient: $recipient,
                 amount: $request->getAmountInCents(),
                 reason: $request->input('reason'),
+                recurring: $recurring,
+                startDate: $request->input('start_date', null),
+                endDate: $request->input('end_date', null),
+                interval: $interval,
             );
 
             return redirect()->back()

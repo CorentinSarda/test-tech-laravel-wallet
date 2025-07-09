@@ -64,6 +64,41 @@
                                       required />
                         <x-input-error :messages="$errors->get('reason')" class="mt-2" />
                     </div>
+                    <div>
+                        <x-input-label for="recurring" :value="__('Recurring transfer')" />
+                        <input type ="checkbox" id="recurring"
+                                    class="mt-1"
+                                    name="recurring"
+                                    :value="old('recurring', false)" />
+                        <x-input-error :messages="$errors->get('recurring')" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="start_date" :value="__('Start date')" />
+                        <input type="date" id="start_date"
+                                      class="block mt-1 w-full"
+                                      type="date"
+                                      :value="old('start_date')"
+                                      name="start_date" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="end_date" :value="__('End date')" />
+                        <input type="date" id="end_date"
+                                      class="block mt-1 w-full"
+                                      type="date"
+                                      :value="old('end_date')"
+                                      name="end_date" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="interval" :value="__('Interval')" />
+                        <input type="number" id="interval"
+                                      class="block mt-1 w-full"
+                                      type="number"
+                                      :value="old('interval')"
+                                      name="interval" />
+                    </div>
 
                     <div class="flex justify-end mt-4">
                         <x-primary-button>
