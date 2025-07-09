@@ -13,6 +13,8 @@ class Wallet extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     /**
      * @return BelongsTo<User>
      */
