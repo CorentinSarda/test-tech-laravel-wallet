@@ -10,6 +10,7 @@ use App\Models\Wallet;
 use App\Models\WalletTransaction;
 use App\Models\WalletTransfer;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\LowBalance;
 use Throwable;
 
 readonly class PerformWalletTransaction
@@ -32,6 +33,10 @@ readonly class PerformWalletTransaction
             ]);
 
             $this->updateWallet($wallet, $type, $amount);
+
+            if ($type === WalletTransactionType::DEBIT && $wallet->balance < 1000) {
+                $this->sendLowBalanceNotification($wallet);
+            }
 
             return $transaction;
         });
@@ -57,5 +62,10 @@ readonly class PerformWalletTransaction
         if ($wallet->balance < $amount) {
             throw new InsufficientBalance($wallet, $amount);
         }
+    }
+
+    protected function sendLowBalanceNotification(Wallet $wallet): void
+    {
+        $wallet->user->notify(new LowBalance());
     }
 }
