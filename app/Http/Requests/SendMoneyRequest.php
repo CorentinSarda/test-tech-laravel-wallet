@@ -45,4 +45,15 @@ class SendMoneyRequest extends FormRequest
     {
         return (int) ceil($this->float('amount') * 100);
     }
+
+    public function getRecurring(): bool
+    {
+        return $this->boolean('recurring');
+    }
+
+    public function getInterval(): int
+    {
+        return $this->integer('interval');
+    }
+    
 }
